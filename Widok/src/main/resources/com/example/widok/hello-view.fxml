@@ -38,7 +38,7 @@
             </Bloom>
          </effect>
       </Label>
-      <Button fx:id="keyGenerator" layoutX="185.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="490.0" text="Wygeneruj klucze">
+      <Button fx:id="keyGenerator" layoutX="185.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="490.0" text="Wygeneruj klucze" onAction="#generateKeys">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -70,7 +70,7 @@
             <Blend />
          </effect>
       </Label>
-      <Button layoutX="211.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="266.0" text="Zapisz">
+      <Button layoutX="211.0" layoutY="242.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="266.0" text="Zapisz" onAction="#saveTextJ">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -78,7 +78,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="211.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Zapisz">
+      <Button layoutX="211.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Zapisz" onAction="#saveTextZ">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -86,7 +86,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="534.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Załaduj">
+      <Button layoutX="534.0" layoutY="242.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Załaduj" onAction="#loadTextJ">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -94,7 +94,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="534.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Załaduj">
+      <Button layoutX="534.0" layoutY="277.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="266.0" text="Załaduj" onAction="#loadTextZ">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -102,7 +102,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Label layoutX="15.0" layoutY="309.0" prefHeight="35.0" prefWidth="186.0" text="TEKST JAWNY:">
+      <Label layoutX="15.0" layoutY="309.0" prefHeight="35.0" prefWidth="186.0" text="TEKST JAWNY:"  >
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -110,7 +110,7 @@
             <Blend />
          </effect>
       </Label>
-      <Label layoutX="534.0" layoutY="309.0" prefHeight="35.0" prefWidth="186.0" text="SZYFROGRAM:">
+      <Label layoutX="534.0" layoutY="309.0" prefHeight="35.0" prefWidth="186.0" text="SZYFROGRAM:" >
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -118,17 +118,17 @@
             <Blend />
          </effect>
       </Label>
-      <TextArea layoutX="12.0" layoutY="341.0" prefHeight="276.0" prefWidth="320.0" wrapText="true">
+      <TextArea layoutX="12.0" layoutY="341.0" prefHeight="276.0" prefWidth="320.0" wrapText="true" fx:id="tekst_jawny">
          <effect>
             <InnerShadow />
          </effect>
       </TextArea>
-      <TextArea layoutX="534.0" layoutY="341.0" prefHeight="276.0" prefWidth="320.0" wrapText="true">
+      <TextArea layoutX="534.0" layoutY="341.0" prefHeight="276.0" prefWidth="320.0" wrapText="true" fx:id="tekst_zaszyfrowany">
          <effect>
             <InnerShadow />
          </effect>
       </TextArea>
-      <Button layoutX="345.0" layoutY="426.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="170.0" text="Podpisz &gt;&gt;&gt;">
+      <Button layoutX="345.0" layoutY="426.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="170.0" text="Podpisz &gt;&gt;&gt;" onAction="#podpisz">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
@@ -136,7 +136,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="345.0" layoutY="503.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="170.0" text="&lt;&lt;&lt; Zweryfikuj">
+      <Button layoutX="345.0" layoutY="503.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="170.0" text="&lt;&lt;&lt; Zweryfikuj" onAction="#zweryfikuj">
          <font>
             <Font name="Txt" size="14.0" />
          </font>
