@@ -24,6 +24,7 @@ public class ElGamal {
         g = new BigInteger(keyLenght,random);
         h=g.modPow(a,N);
         Nn1 = N.subtract(BigInteger.ONE);
+        System.out.println(a.toString());
     }
     public BigInteger [] sign(byte [] text) {
         messageDigest.update(text);
