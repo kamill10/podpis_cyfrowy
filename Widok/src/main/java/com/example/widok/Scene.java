@@ -24,7 +24,7 @@ public class Scene {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        stage.setTitle("ZADANIE 1 KRYPTOGRAFIA");
+        stage.setTitle("ZADANIE 2 KRYPTOGRAFIA");
         stage.setScene(scene);
         stage.show();
     }

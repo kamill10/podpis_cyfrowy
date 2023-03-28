@@ -38,7 +38,7 @@ public class HelloController {
         if (fileToSave != null) {
             try {
                 OutputStream fos = new FileOutputStream(fileToSave);
-                fos.write(dane);
+                fos.write(null);
                 fos.close();
                 System.out.println("Zapisano pomyślnie!");
             } catch (IOException e) {
@@ -59,14 +59,14 @@ public class HelloController {
             try {
                 FileInputStream fis = new FileInputStream(loadFile);
                 int size = fis.available();
-                dane = new byte [size];
-                int bytes_read = fis.read(dane);
-                if(bytes_read == 0) {
-                    System.out.println("Plik jest pusty!");
-                }
-                else {
-                    System.out.println("Odczytano pomyślnie!");
-                }
+                //dane = new byte [size];
+                //int bytes_read = fis.read(dane);
+                //if(bytes_read == 0) {
+                   // System.out.println("Plik jest pusty!");
+                //}
+               // else {
+                    //System.out.println("Odczytano pomyślnie!");
+               // }
                 fis.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -74,7 +74,7 @@ public class HelloController {
         } else {
             System.out.println("Odczyt został przerwany");
         }
-        return dane;
+        return null;
     }
 
 }
