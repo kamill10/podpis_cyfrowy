@@ -95,18 +95,6 @@ public class HelloController {
         System.out.print("87FC7EC047157F6D7AE682CF82B68CA9");
         zapis_do_pliku();
     }
-//    public void saveTextJ() {
-//        if(dane.length != 0)
-//            dane = HexFormat.of().parseHex(getTekst_jawny());
-//        else
-//            dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
-//        zapis_do_pliku();
-//        dane = new byte[0];
-//    }
-//    public void saveTextZ() {
-//        dane = HexFormat.of().parseHex(getTekst_zaszyfrowany());
-//        zapis_do_pliku();
-//    }
     public void loadKey() {
         byte[] klucze = odczyt_z_pliku();
         ByteBuffer bb = ByteBuffer.wrap(klucze);
@@ -121,6 +109,18 @@ public class HelloController {
         keyH.setText(converter(kluczH));
         keyA.setText(converter(kluczA));
     }
+//    public void saveTextJ() {
+//        if(dane.length != 0)
+//            dane = HexFormat.of().parseHex(getTekst_jawny());
+//        else
+//            dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
+//        zapis_do_pliku();
+//        dane = new byte[0];
+//    }
+//    public void saveTextZ() {
+//        dane = HexFormat.of().parseHex(getTekst_zaszyfrowany());
+//        zapis_do_pliku();
+//    }
 //    public void loadTextJ() {
 //        tekst_jawny.setText(converter(odczyt_z_pliku()));
 //    }
