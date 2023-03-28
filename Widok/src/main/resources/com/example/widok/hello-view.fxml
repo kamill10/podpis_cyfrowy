@@ -25,7 +25,7 @@
       </Label>
    </TilePane>
    <Pane prefHeight="632.0" prefWidth="888.0">
-      <TextField fx:id="key" layoutX="184.0" layoutY="15.0" prefHeight="25.0" prefWidth="687.0" />
+      <TextField fx:id="keyG" layoutX="184.0" layoutY="15.0" prefHeight="25.0" prefWidth="687.0" />
       <Label layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="170.0" text="Klucz publiczny g:">
          <font>
             <Font name="Txt" size="14.0" />
@@ -144,7 +144,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="771.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="96.0" text="Wczytaj">
+      <Button onAction="#loadKey" layoutX="771.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="96.0" text="Wczytaj">
          <font>
             <Font name="Txt" size="12.0" />
          </font>
@@ -152,7 +152,7 @@
             <InnerShadow />
          </effect>
       </Button>
-      <Button layoutX="675.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="96.0" text="Zapisz">
+      <Button onAction="#saveKey" layoutX="675.0" layoutY="160.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="96.0" text="Zapisz">
          <font>
             <Font name="Txt" size="12.0" />
          </font>
@@ -196,9 +196,9 @@
             </Bloom>
          </effect>
       </Label>
-      <TextField fx:id="key1" layoutX="184.0" layoutY="50.0" prefHeight="25.0" prefWidth="687.0" />
-      <TextField fx:id="key11" layoutX="184.0" layoutY="85.0" prefHeight="25.0" prefWidth="687.0" />
-      <TextField fx:id="key111" layoutX="184.0" layoutY="120.0" prefHeight="25.0" prefWidth="687.0" />
+      <TextField fx:id="keyH" layoutX="184.0" layoutY="50.0" prefHeight="25.0" prefWidth="687.0" />
+      <TextField fx:id="keyA" layoutX="184.0" layoutY="85.0" prefHeight="25.0" prefWidth="687.0" />
+      <TextField fx:id="MOD" layoutX="184.0" layoutY="120.0" prefHeight="25.0" prefWidth="687.0" />
    </Pane>
    <opaqueInsets>
       <Insets />
