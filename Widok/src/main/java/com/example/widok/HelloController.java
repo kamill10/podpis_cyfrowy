@@ -1,20 +1,38 @@
 package com.example.widok;
 
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
-
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.HexFormat;
 
 
 public class HelloController {
-
-
+    public TextField MOD;
     public Button keyGenerator;
-    public TextField key;
+    public TextField keyG;
+    public TextField keyH;
+    public TextField keyA;
+    private byte [] dane = new byte[0];
+
+
+    public String getKeyG() {
+        return keyG.getText();
+    }
+
+    public String getKeyH() {
+        return keyH.getText();
+    }
+
+    public String getKeyA() {
+        return keyA.getText();
+    }
+
+    public String getMOD() {
+        return MOD.getText();
+    }
 
     public String converter(byte [] bytes){
         StringBuilder sb = new StringBuilder();
@@ -23,11 +41,6 @@ public class HelloController {
         }
         return sb.toString();
     }
-
-
-
-
-
     public void zapis_do_pliku() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Zapis do pliku");
@@ -76,5 +89,42 @@ public class HelloController {
         }
         return dane;
     }
+    public void saveKey() {
+        dane = HexFormat.of().parseHex(getKeyG() + getKeyH() + getKeyH());
+        System.out.println(Arrays.toString(dane));
+        System.out.print("87FC7EC047157F6D7AE682CF82B68CA9");
+        zapis_do_pliku();
+    }
+    public void loadKey() {
+        byte[] klucze = odczyt_z_pliku();
+        ByteBuffer bb = ByteBuffer.wrap(klucze);
 
+        byte[] kluczG = new byte[16];
+        byte[] kluczH = new byte[16];
+        byte[] kluczA = new byte[16];
+        bb.get(kluczG, 0, kluczG.length);
+        bb.get(kluczH, 0, kluczH.length);
+        bb.get(kluczA, 0, kluczA.length);
+        keyG.setText(converter(kluczG));
+        keyH.setText(converter(kluczH));
+        keyA.setText(converter(kluczA));
+    }
+//    public void saveTextJ() {
+//        if(dane.length != 0)
+//            dane = HexFormat.of().parseHex(getTekst_jawny());
+//        else
+//            dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
+//        zapis_do_pliku();
+//        dane = new byte[0];
+//    }
+//    public void saveTextZ() {
+//        dane = HexFormat.of().parseHex(getTekst_zaszyfrowany());
+//        zapis_do_pliku();
+//    }
+//    public void loadTextJ() {
+//        tekst_jawny.setText(converter(odczyt_z_pliku()));
+//    }
+//    public void loadTextZ() {
+//        tekst_zaszyfrowany.setText(converter(odczyt_z_pliku()));
+//    }
 }
