@@ -142,6 +142,7 @@ public class HelloController {
         MOD.setText(converter(kluczn));
     }
 
+
     public void saveTextJ() {
         if(dane.length != 0)
             dane = HexFormat.of().parseHex(getTekst_jawny());
@@ -150,12 +151,14 @@ public class HelloController {
         zapis_do_pliku();
         dane = new byte[0];
     }
-    public void loadTextJ() {
-        tekst_jawny.setText(converter(odczyt_z_pliku()));
-    }
+
     public void saveTextZ() {
         dane = HexFormat.of().parseHex(getTekst_zaszyfrowany().replaceAll("\n", "656E746572"));
         zapis_do_pliku();
+    }
+
+    public void loadTextJ() {
+        tekst_jawny.setText(converter(odczyt_z_pliku()));
     }
     public void loadTextZ() {
         tekst_zaszyfrowany.setText(converter(odczyt_z_pliku()).replaceAll("656E746572", "\n"));
@@ -185,6 +188,7 @@ public class HelloController {
         BigInteger[] podpis = new BigInteger[2];
         podpis[0] = new BigInteger(HexFormat.of().parseHex(tab[0]));
         podpis[1] = new BigInteger(HexFormat.of().parseHex(tab[1]));
+        // pomysl jak zmienic Stringa na BIgInteger,bo tak przekazuje szyfr z bufora
         boolean flag = gamal.verify(podpis, getTekst_jawny().getBytes(), kluczN, kluczG, kluczH);
         Alert alert;
         if (flag) {
