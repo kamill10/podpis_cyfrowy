@@ -188,7 +188,6 @@ public class HelloController {
         BigInteger[] podpis = new BigInteger[2];
         podpis[0] = new BigInteger(HexFormat.of().parseHex(tab[0]));
         podpis[1] = new BigInteger(HexFormat.of().parseHex(tab[1]));
-        // pomysl jak zmienic Stringa na BIgInteger,bo tak przekazuje szyfr z bufora
         boolean flag = gamal.verify(podpis, getTekst_jawny().getBytes(), kluczN, kluczG, kluczH);
         Alert alert;
         if (flag) {
