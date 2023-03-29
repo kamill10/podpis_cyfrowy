@@ -1,17 +1,15 @@
 package com.example.widok;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import org.example.krypto.ElGamal;
 import org.example.krypto.Keys;
-
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.HexFormat;
+
 
 
 public class HelloController {
@@ -48,6 +46,26 @@ public class HelloController {
         return MOD.getText();
     }
 
+    private String getTekst_zaszyfrowany() {
+        return tekst_zaszyfrowany.getText();
+    }
+
+    private String getTekst_jawny() {
+        return tekst_jawny.getText();
+    }
+    public void generateKeys() {
+        Keys keys= new Keys();
+        keys.generateKeys();
+        kluczG = keys.getG();
+        kluczH= keys.getH();
+        kluczA = keys.getA();
+        kluczN = keys.getN();
+        kluczNn1 = keys.getNn1();
+        keyG.setText(converter(kluczG.toByteArray()));
+        keyH.setText(converter(kluczH.toByteArray()));
+        keyA.setText(converter(kluczA.toByteArray()));
+        MOD.setText(converter(kluczN.toByteArray()));
+    }
     public String converter(byte [] bytes){
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
@@ -104,93 +122,82 @@ public class HelloController {
         return dane;
     }
     public void saveKey() {
-        dane = HexFormat.of().parseHex(getKeyG() + getKeyH() + getKeyA()+getMOD());
-        System.out.println(Arrays.toString(dane));
-        System.out.print("87FC7EC047157F6D7AE682CF82B68CA9");
+        dane = HexFormat.of().parseHex(getKeyG() + getKeyH() + getKeyA()+ getMOD());
         zapis_do_pliku();
     }
     public void loadKey() {
         byte[] klucze = odczyt_z_pliku();
         ByteBuffer bb = ByteBuffer.wrap(klucze);
-        bb.get(kluczG.toByteArray(), 0, kluczG.toByteArray().length);
-        bb.get(kluczH.toByteArray(), 0, kluczH.toByteArray().length);
-        bb.get(kluczA.toByteArray(), 0, kluczA.toByteArray().length);
-        bb.get(kluczN.toByteArray(), 0, kluczN.toByteArray().length);
-        keyG.setText(converter(kluczG.toByteArray()));
-        keyH.setText(converter(kluczH.toByteArray()));
-        keyA.setText(converter(kluczA.toByteArray()));
-        MOD.setText(converter(kluczN.toByteArray()));
+        byte[] kluczg = new byte[256];
+        byte[] kluczh = new byte[257];
+        byte[] klucza = new byte[256];
+        byte[] kluczn = new byte[257];
+        bb.get(kluczg, 0, kluczg.length);
+        bb.get(kluczh, 0, kluczh.length);
+        bb.get(klucza, 0, klucza.length);
+        bb.get(kluczn, 0, kluczn.length);
+        keyG.setText(converter(kluczg));
+        keyH.setText(converter(kluczh));
+        keyA.setText(converter(klucza));
+        MOD.setText(converter(kluczn));
     }
 
-    public void generateKeys() throws NoSuchAlgorithmException {
-        Keys keys= new Keys();
-        keys.generateKeys();
-        kluczG = keys.getG();
-        kluczH= keys.getH();
-        kluczA = keys.getA();
-        kluczN = keys.getN();
-        kluczNn1 = keys.getNn1();
-        keyG.setText(converter(kluczG.toByteArray()));
-        keyH.setText(converter(kluczH.toByteArray()));
-        keyA.setText(converter(kluczA.toByteArray()));
-        MOD.setText(converter(kluczN.toByteArray()));
 
-
-    }
     public void saveTextJ() {
         if(dane.length != 0)
             dane = HexFormat.of().parseHex(getTekst_jawny());
         else
             dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
-        System.out.println(dane);
         zapis_do_pliku();
         dane = new byte[0];
     }
 
-    private String getTekst_jawny() {
-        return tekst_jawny.getText();
-    }
-
     public void saveTextZ() {
-        dane = HexFormat.of().parseHex(getTekst_zaszyfrowany());
+        dane = HexFormat.of().parseHex(getTekst_zaszyfrowany().replaceAll("\n", "656E746572"));
         zapis_do_pliku();
-    }
-
-    private String getTekst_zaszyfrowany() {
-        return tekst_zaszyfrowany.getText();
     }
 
     public void loadTextJ() {
         tekst_jawny.setText(converter(odczyt_z_pliku()));
     }
     public void loadTextZ() {
-        tekst_zaszyfrowany.setText(converter(odczyt_z_pliku()));
+        tekst_zaszyfrowany.setText(converter(odczyt_z_pliku()).replaceAll("656E746572", "\n"));
     }
 
     public void podpisz() throws NoSuchAlgorithmException {
         ElGamal gamal = new ElGamal();
+        kluczN = new BigInteger(HexFormat.of().parseHex(getMOD()));
+        kluczA = new BigInteger(HexFormat.of().parseHex(getKeyA()));
+        kluczG = new BigInteger(HexFormat.of().parseHex(getKeyG()));
+        kluczNn1 = kluczN.subtract(BigInteger.ONE);
         szyfr =  gamal.sign(getTekst_jawny().getBytes(),kluczNn1,kluczG,kluczA,kluczN);
-        StringBuilder sb = new StringBuilder();
+        StringBuilder result = new StringBuilder();
         for (BigInteger number : szyfr) {
-            sb.append(number.toString());
+            result.append(converter(number.toByteArray()));
+            result.append("\n");
         }
-        String result = sb.toString();
-        tekst_zaszyfrowany.setText( result);
+        tekst_zaszyfrowany.setText(result.toString());
     }
 
     public void zweryfikuj() throws NoSuchAlgorithmException {
+        kluczN = new BigInteger(HexFormat.of().parseHex(getMOD()));
+        kluczH = new BigInteger(HexFormat.of().parseHex(getKeyH()));
+        kluczG = new BigInteger(HexFormat.of().parseHex(getKeyG()));
         ElGamal gamal = new ElGamal();
+        String[] tab = getTekst_zaszyfrowany().split("\n");
+        BigInteger[] podpis = new BigInteger[2];
+        podpis[0] = new BigInteger(HexFormat.of().parseHex(tab[0]));
+        podpis[1] = new BigInteger(HexFormat.of().parseHex(tab[1]));
         // pomysl jak zmienic Stringa na BIgInteger,bo tak przekazuje szyfr z bufora
-        boolean flag = gamal.verify(szyfr,getTekst_zaszyfrowany().getBytes(),kluczN,kluczG,kluczH);
+        boolean flag = gamal.verify(podpis, getTekst_jawny().getBytes(), kluczN, kluczG, kluczH);
+        Alert alert;
         if (flag) {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Podpis OK", ButtonType.OK);
-            alert.setResizable(false);
-            alert.showAndWait();
+            alert = new Alert(Alert.AlertType.NONE, "Podpis jest poprawny", ButtonType.OK);
         }
         else {
-            Alert alert = new Alert(Alert.AlertType.NONE, "Sfałszowano!", ButtonType.OK);
-            alert.setResizable(false);
-            alert.showAndWait();
+            alert = new Alert(Alert.AlertType.NONE, "Sfałszowano!", ButtonType.OK);
         }
+        alert.setResizable(false);
+        alert.showAndWait();
     }
 }
