@@ -20,8 +20,7 @@ public class HelloController {
     public TextField keyA;
     public TextArea tekst_jawny;
     public TextArea tekst_zaszyfrowany;
-
-    private byte [] dane = new byte[0];
+    private byte[] dane = new byte[0];
     BigInteger kluczA;
     BigInteger kluczG;
     BigInteger  kluczH;
@@ -144,7 +143,7 @@ public class HelloController {
 
 
     public void saveTextJ() {
-        if(dane.length != 0)
+        if (dane.length != 0)
             dane = HexFormat.of().parseHex(getTekst_jawny());
         else
             dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
