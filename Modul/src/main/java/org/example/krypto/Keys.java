@@ -9,14 +9,14 @@ public class Keys {
     BigInteger g;
     BigInteger h;
     BigInteger Nn1;
-    private final int keyLenght = 2048;
     private final Random random = new Random();
 
     public void generateKeys() {
-        N=BigInteger.probablePrime(keyLenght+2,random);
+        int keyLenght = 2048;
+        N = BigInteger.probablePrime(keyLenght + 2, random);
         a = new BigInteger(keyLenght,random); //klucz prywatny
         g = new BigInteger(keyLenght,random);
-        h=g.modPow(a,N);
+        h = g.modPow(a,N);
         Nn1 = N.subtract(BigInteger.ONE);
     }
 
