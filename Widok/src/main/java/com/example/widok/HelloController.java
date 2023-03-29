@@ -144,12 +144,8 @@ public class HelloController {
 
 
     public void saveTextJ() {
-        if(dane.length != 0)
-            dane = HexFormat.of().parseHex(getTekst_jawny());
-        else
-            dane =  HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
+            dane = HexFormat.of().parseHex(converter(getTekst_jawny().getBytes()));
         zapis_do_pliku();
-        dane = new byte[0];
     }
 
     public void saveTextZ() {
