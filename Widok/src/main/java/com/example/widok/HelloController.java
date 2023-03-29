@@ -1,6 +1,5 @@
 package com.example.widok;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 import org.example.krypto.ElGamal;
@@ -170,18 +169,24 @@ public class HelloController {
     public void podpisz() throws NoSuchAlgorithmException {
         ElGamal gamal = new ElGamal();
         szyfr =  gamal.sign(getTekst_jawny().getBytes(),kluczNn1,kluczG,kluczA,kluczN);
-        StringBuilder sb = new StringBuilder();
-        for (BigInteger number : szyfr) {
-            sb.append(number.toString());
-        }
-        String result = sb.toString();
-        tekst_zaszyfrowany.setText( result);
+
+        tekst_zaszyfrowany.setText(szyfr[0].toString() +"\n" +szyfr[1].toString());
+        System.out.println("0");
+        System.out.println(szyfr[0]);
+        System.out.println("1");
+        System.out.println(szyfr[1]);
     }
 
     public void zweryfikuj() throws NoSuchAlgorithmException {
         ElGamal gamal = new ElGamal();
+
         // pomysl jak zmienic Stringa na BIgInteger,bo tak przekazuje szyfr z bufora
-        boolean flag = gamal.verify(szyfr,getTekst_zaszyfrowany().getBytes(),kluczN,kluczG,kluczH);
+        BigInteger[] szyfr2 = new BigInteger[2];
+        szyfr2[0] = new BigInteger(getTekst_zaszyfrowany().split("\n")[0], 16);
+        szyfr2[1] = new BigInteger(getTekst_zaszyfrowany().split("\n")[1], 16);
+        System.out.println(szyfr[0]);
+        System.out.println(szyfr[1]);
+        boolean flag = gamal.verify(szyfr2,getTekst_jawny().getBytes(),kluczN,kluczG,kluczH);
         if (flag) {
             Alert alert = new Alert(Alert.AlertType.NONE, "Podpis OK", ButtonType.OK);
             alert.setResizable(false);
@@ -192,5 +197,13 @@ public class HelloController {
             alert.setResizable(false);
             alert.showAndWait();
         }
+    }
+
+    public static BigInteger stringToBigInt(String str)
+    {
+        byte[] tab = new byte[str.length()];
+        for (int i = 0; i < tab.length; i++)
+            tab[i] = (byte)str.charAt(i);
+        return new BigInteger(1,tab);
     }
 }

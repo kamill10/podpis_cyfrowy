@@ -45,34 +45,8 @@ public class ElGamal {
         return result1.compareTo(result2) == 0;
     }
 
-    public boolean verify(String tekstJawny, String podpis,BigInteger N,BigInteger g,BigInteger h)
-    {
-        messageDigest.update(tekstJawny.getBytes());
-        BigInteger hash = new BigInteger(1, messageDigest.digest());
-        String tab[]=podpis.split("\n");
-        BigInteger S1=new BigInteger(1,hexToBytes(tab[0]));
-        BigInteger S2=new BigInteger(1,hexToBytes(tab[1]));
-        BigInteger wynik1=g.modPow(hash, N);
-        BigInteger wynik2=h.modPow(S1, N).multiply(S1.modPow(S2, N)).mod(N);
-        if(wynik1.compareTo(wynik2)==0)return true; else return false;
-    }
 
-    private byte[] hexToBytes(String tekst) {
-        if (tekst == null) { return null;}
-        else if (tekst.length() < 2) { return null;}
-        else { if (tekst.length()%2!=0)tekst+='0';
-            int dl = tekst.length() / 2;
-            byte[] wynik = new byte[dl];
-            for (int i = 0; i < dl; i++)
-            { try{
-                wynik[i] = (byte) Integer.parseInt(tekst.substring(i * 2, i * 2 + 2), 16);
-            }catch(NumberFormatException e) {
-                System.out.println("blad z konwersja");
-            }
-            }
-            return wynik;
-        }
-    }
+
 
 
 }
