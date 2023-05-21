@@ -121,7 +121,7 @@ public class HelloController {
         return dane;
     }
     public void saveKey() {
-        dane = HexFormat.of().parseHex(getKeyG() + getKeyH() + getKeyA()+ getMOD());
+        dane = HexFormat.of().parseHex(getKeyG() + getKeyA()+ getMOD() + getKeyH());
         zapis_do_pliku();
     }
     public void loadKey() {
