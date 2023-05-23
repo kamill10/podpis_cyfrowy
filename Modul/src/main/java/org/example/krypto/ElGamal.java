@@ -43,6 +43,4 @@ public class ElGamal {
         BigInteger result2 = h.modPow(podpis[0], N).multiply(podpis[0].modPow(podpis[1], N)).mod(N);
         return result1.compareTo(result2) == 0;
     }
-
-
 }
